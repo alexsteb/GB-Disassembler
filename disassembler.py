@@ -3,10 +3,13 @@ lineNums = input("Show line numbers? (y/n) ")
 showBytes = input("Show bytes? (y/n) ")
 lcStyle = input("RGBDS style Assembly? (y/n) ")
 jumps = input("Show absolute labels? (y/n) ")
+print ("")
+print ("(Address space is 0000 to 7fff for ROM bank 0, and 4000 each after that. e.g. 8000 to bfff for ROM bank 1 and so on.)")
 starth = input("Enter first address (hex): ")
 endh = input("Enter last address (hex): ")
-membank = input("Memory bank number: ")
+membank = input("Memory bank number (for output file name only): ")
 
+if fileName == "": fileName = "Legend of Zelda, The - Link's Awakening (U) (V1.2) [!].gb"
 
 start = int(starth, 16)
 end = int(endh, 16)+1
@@ -38,6 +41,7 @@ skip = 0
 
 _byteList = []
 
+#fo = open("disasm_"+starth+"-"+endh+".txt","w+")
 fo = open("bank"+membank+".asm","w+")
 
 for ite in range(0,len(hexList) - (-length)):
@@ -586,7 +590,8 @@ for ite,op in enumerate(ops):
 
 	if lcStyle == "y":
 		hexAddress = hexAddressBig.lower()
-
+	else:
+		hexAddress = hexAddressBig
 	
 	if hexAddressBig in callLabels:
 		fo.write ("\n")
